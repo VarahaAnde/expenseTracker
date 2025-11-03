@@ -1,0 +1,24 @@
+{
+  "name": "day3-expensetracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VarahaAnde/expenseTracker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/VarahaAnde/expenseTracker/issues"
+  },
+  "homepage": "https://github.com/VarahaAnde/expenseTracker#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}

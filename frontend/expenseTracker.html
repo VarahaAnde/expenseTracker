@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+    <link rel="stylesheet" href="expenseTracker.css">
+  </head>
+  <body>
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <div class="top-bar-left">
+        <button class="nav-btn" id="prevMonth">◀</button>
+        <span class="month-display">Oct 2025</span>
+        <button class="nav-btn" id="nextMonth">▶</button>
+      </div>
+      <div class="top-bar-center">
+        <span class="summary-stats">
+          <span>Income: <span class="amount income-amount">$2,350</span></span>
+          <span>Expense: <span class="amount expense-amount">$1,420</span></span>
+          <span>Net: <span class="amount net-amount">$930</span></span>
+        </span>
+      </div>
+      <div class="top-bar-right">
+        <div class="search-container">
+          <input type="text" class="search-input" placeholder="Search 🔎">
+        </div>
+        <button class="btn-primary" id="addTransactionBtn">+ Add Transaction</button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+      <!-- Left Sidebar - Filters -->
+      <aside class="left-sidebar">
+        <div class="filters-section">
+          <h3>Filters</h3>
+          <div class="filter-divider"></div>
+          
+          <div class="filter-group">
+            <label>Date Range</label>
+            <select class="filter-select" id="dateRange">
+              <option>This Month</option>
+              <option>Last Month</option>
+              <option>This Year</option>
+              <option>Custom</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Category</label>
+            <select class="filter-select" id="categoryFilter">
+              <option>All</option>
+              <option>Groceries</option>
+              <option>Transport</option>
+              <option>Income</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Type</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label">
+                <input type="checkbox" class="filter-checkbox" id="filterExpense" checked>
+                <span>Expense</span>
+              </label>
+              <label class="checkbox-label">
+                <input type="checkbox" class="filter-checkbox" id="filterIncome">
+                <span>Income</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="filter-group">
+            <label>Account (optional)</label>
+            <select class="filter-select" id="accountFilter">
+              <option>All</option>
+            </select>
+          </div>
+
+          <div class="filter-group">
+            <label>Tags (optional)</label>
+            <div class="tags-container">
+              <span class="tag">+trip</span>
+              <span class="tag">+work</span>
+              <input type="text" class="tag-input" placeholder="Add tag">
+            </div>
+          </div>
+
+          <button class="btn-reset" id="resetFilters">↺ Reset Filters</button>
+        </div>
+      </aside>
+
+      <!-- Main Content - Transactions -->
+      <main class="main-content">
+        <!-- Transactions Table -->
+        <div class="transactions-section">
+          <div class="table-container">
+            <table class="transactions-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Payee/Notes</th>
+                  <th class="amount-header">Amount</th>
+                </tr>
+              </thead>
+              <tbody id="transactionsBody">
+                <tr>
+                  <td>10/02</td>
+                  <td><span class="category-badge category-groceries">Groceries</span></td>
+                  <td>Trader Joe's</td>
+                  <td class="amount expense">-42.18</td>
+                </tr>
+                <tr>
+                  <td>10/02</td>
+                  <td><span class="category-badge category-income">Income</span></td>
+                  <td>Paycheck</td>
+                  <td class="amount income">+500</td>
+                </tr>
+                <tr>
+                  <td>10/03</td>
+                  <td><span class="category-badge category-transport">Transport</span></td>
+                  <td>Lyft</td>
+                  <td class="amount expense">-13.50</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Pagination -->
+          <div class="pagination">
+            <button class="page-btn" id="prevPage">◀</button>
+            <span class="page-numbers">
+              <button class="page-number active">1</button>
+              <button class="page-number">2</button>
+              <button class="page-number">3</button>
+            </span>
+            <button class="page-btn" id="nextPage">▶</button>
+          </div>
+        </div>
+
+        <!-- Inline Add Form -->
+        <div class="inline-add-section">
+          <h4>Inline Add (quick)</h4>
+          <form class="inline-add-form" id="inlineAddForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label>Amount</label>
+                <input type="number" step="0.01" class="form-input" id="quickAmount">
+              </div>
+              <div class="form-group">
+                <label>Category</label>
+                <select class="form-select" id="quickCategory">
+                  <option>Groceries</option>
+                  <option>Transport</option>
+                  <option>Income</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Date</label>
+                <input type="date" class="form-input" id="quickDate">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group form-group-wide">
+                <label>Payee</label>
+                <input type="text" class="form-input" id="quickPayee">
+              </div>
+              <div class="form-group form-group-wide">
+                <label>Notes</label>
+                <input type="text" class="form-input" id="quickNotes" placeholder="..............">
+              </div>
+            </div>
+            <button type="submit" class="btn-add">Add</button>
+          </form>
+        </div>
+      </main>
+
+      <!-- Right Sidebar - Summary -->
+      <aside class="right-sidebar">
+        <div class="summary-section">
+          <h3>Summary</h3>
+          <div class="filter-divider"></div>
+          
+          <div class="summary-item">
+            <h4>By Category</h4>
+            <div class="chart-container" id="categoryChart">
+              <!-- Placeholder bars - will be generated by JS -->
+              <div class="bar-item">
+                <span class="bar-label">Groceries</span>
+                <div class="bar-wrapper">
+                  <div class="bar" style="width: 75%"></div>
+                  <span class="bar-value">$500</span>
+                </div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Transport</span>
+                <div class="bar-wrapper">
+                  <div class="bar" style="width: 45%"></div>
+                  <span class="bar-value">$300</span>
+                </div>
+              </div>
+              <div class="bar-item">
+                <span class="bar-label">Other</span>
+                <div class="bar-wrapper">
+                  <div class="bar" style="width: 30%"></div>
+                  <span class="bar-value">$200</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="summary-item">
+            <h4>Budget vs Actual</h4>
+            <div class="budget-comparison" id="budgetChart">
+              <!-- Will be populated by JS -->
+              <div class="budget-item">
+                <span class="budget-label">Budget</span>
+                <span class="budget-amount">$2,000</span>
+              </div>
+              <div class="budget-item">
+                <span class="budget-label">Actual</span>
+                <span class="budget-amount">$1,420</span>
+              </div>
+              <div class="budget-bar">
+                <div class="budget-progress" style="width: 71%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <script src="expenseTracker.js"></script>
+  </body>
+</html>
